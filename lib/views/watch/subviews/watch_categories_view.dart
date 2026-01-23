@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../viewmodels/watch_viewmodel.dart';
-import '../../widgets/watch_search_bar.dart';
+import '../../widgets/watch/watch_search_bar.dart';
 
 class WatchCategoriesView extends StatelessWidget {
   const WatchCategoriesView({super.key});

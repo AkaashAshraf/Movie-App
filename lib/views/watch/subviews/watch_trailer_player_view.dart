@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:video_player/video_player.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../../viewmodels/watch_viewmodel.dart';
-import '../../../core/constants/app_colors.dart';
 
 class WatchTrailerPlayerView extends StatefulWidget {
   const WatchTrailerPlayerView({super.key});
@@ -12,8 +12,7 @@ class WatchTrailerPlayerView extends StatefulWidget {
 }
 
 class _WatchTrailerPlayerViewState extends State<WatchTrailerPlayerView> {
-  VideoPlayerController? _controller;
-  bool _isInitialized = false;
+  YoutubePlayerController? _controller;
 
   @override
   void initState() {
@@ -22,71 +21,81 @@ class _WatchTrailerPlayerViewState extends State<WatchTrailerPlayerView> {
     final vm = context.read<WatchViewModel>();
     final trailer = vm.selectedTrailer;
 
-    if (trailer != null) {
-      _controller = VideoPlayerController.networkUrl(
-        Uri.parse(trailer.url),
-      )..initialize().then((_) {
-          setState(() {
-            _isInitialized = true;
-          });
-          _controller!.play();
-          _listenForEnd();
-        });
+    if (trailer == null || trailer.key.isEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pop(context);
+      });
+      return;
     }
-  }
 
-  void _listenForEnd() {
-    _controller?.addListener(() {
-      if (_controller!.value.position >= _controller!.value.duration) {
-        if (mounted) {
-          Navigator.pop(context);
-        }
-      }
-    });
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.immersiveSticky,
+    );
+
+    _controller = YoutubePlayerController(
+      initialVideoId: trailer.key,
+      flags: const YoutubePlayerFlags(
+        autoPlay: true,
+        mute: false,
+        controlsVisibleAtStart: true,
+      ),
+    );
   }
 
   @override
   void dispose() {
     _controller?.dispose();
+
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.edgeToEdge,
+    );
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_controller == null) {
+      return const Scaffold(
+        backgroundColor: Colors.black,
+        body: Center(
+          child: CircularProgressIndicator(color: Colors.white),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
-        child: Stack(
-          children: [
-            Center(
-              child: _isInitialized
-                  ? AspectRatio(
-                      aspectRatio: _controller!.value.aspectRatio,
-                      child: VideoPlayer(_controller!),
-                    )
-                  : const CircularProgressIndicator(
-                      color: AppColors.offWhite,
+        child: YoutubePlayerBuilder(
+          player: YoutubePlayer(
+            controller: _controller!,
+            showVideoProgressIndicator: true,
+          ),
+          builder: (context, player) {
+            return Stack(
+              children: [
+                Center(child: player),
+                Positioned(
+                  top: 12,
+                  right: 12,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text(
+                      'Done',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-            ),
-
-            // Done Button
-            Positioned(
-              top: 12,
-              right: 12,
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text(
-                  'Done',
-                  style: TextStyle(
-                    color: AppColors.offWhite,
-                    fontSize: 16,
                   ),
                 ),
-              ),
-            ),
-          ],
+              ],
+            );
+          },
         ),
       ),
     );

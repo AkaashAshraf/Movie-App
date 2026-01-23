@@ -22,7 +22,7 @@ class MoreView extends StatelessWidget {
       ),
       body: const Center(
         child: Text(
-          'More Screen',
+          'More Screens',
           style: TextStyle(
             color: AppColors.grey,
             fontSize: 16,

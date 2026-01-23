@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/core/constants/api_constants.dart';
-import 'package:movie_app/views/widgets/watch_search_bar.dart';
+import 'package:movie_app/views/widgets/watch/watch_search_bar.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../viewmodels/watch_viewmodel.dart';

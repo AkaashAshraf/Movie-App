@@ -16,10 +16,6 @@ class WatchView extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: () async {
-        // if (vm.canGoBack()) {
-        //   vm.goBack();
-        //   return false;
-        // }
         return true;
       },
       child: Scaffold(

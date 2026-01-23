@@ -6,6 +6,8 @@ class ApiConstants {
 
   static String movieDetails(String movieId) =>
       '$baseUrl/movie/$movieId?api_key=$apiKey';
+  static String movieVideos(String movieId) =>
+      '$baseUrl/movie/$movieId/videos?api_key=$apiKey';
 
   static String searchMovie(String query) =>
       '$baseUrl/search/movie?query=$query&api_key=$apiKey';

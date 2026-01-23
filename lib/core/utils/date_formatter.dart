@@ -6,7 +6,7 @@ class DateFormatter {
       final parsedDate = DateTime.parse(date);
       return DateFormat('MMMM dd, yyyy').format(parsedDate);
     } catch (e) {
-      return date; // fallback
+      return date;
     }
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/views/widgets/watch_search_bar.dart';
+import 'package:movie_app/views/widgets/watch/watch_search_bar.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../viewmodels/watch_viewmodel.dart';
@@ -44,12 +44,7 @@ class WatchFinalResultsView extends StatelessWidget {
       );
     }
 
-    if (vm.error != null) {
-      // return _ErrorState(
-      //   message: vm.error!,
-      //   onRetry: vm.retry,
-      // );
-    }
+    if (vm.error != null) {}
 
     if (vm.searchResults.isEmpty) {
       return const Center(

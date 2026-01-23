@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:movie_app/views/watch/watch_details_view.dart';
-import 'package:movie_app/views/widgets/featured_movie_card.dart';
+import 'package:movie_app/views/widgets/watch/featured_movie_card.dart';
 import 'package:provider/provider.dart';
 import '../../../viewmodels/watch_viewmodel.dart';
 import '../../../core/constants/app_colors.dart';

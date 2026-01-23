@@ -1,4 +1,5 @@
 import 'package:movie_app/data/models/tmdb_movie_details_model.dart';
+import 'package:movie_app/data/models/tmdb_video_model.dart';
 
 import '../datasources/watch_remote_datasource.dart';
 import '../models/tmdb_movie_model.dart';
@@ -18,5 +19,9 @@ class WatchRepository {
 
   Future<List<TmdbMovieModel>> searchMovies(String query) {
     return remote.searchMovies(query);
+  }
+
+  Future<List<TmdbVideoModel>> getMovieVideos(String movieId) {
+    return remote.getMovieVideos(movieId);
   }
 }

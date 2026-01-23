@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/views/widgets/genre_chip.dart';
+import 'package:movie_app/views/seats/show_time_selection_view.dart';
+import 'package:movie_app/views/widgets/watch/genre_chip.dart';
 import 'package:movie_app/views/widgets/loading_incator.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/app_colors.dart';
@@ -35,8 +36,6 @@ class WatchDetailsPortraitView extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-
-                // Gradient overlay
                 Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -49,8 +48,6 @@ class WatchDetailsPortraitView extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                // Back button
                 SafeArea(
                   child: IconButton(
                     onPressed: () => Navigator.pop(context),
@@ -60,8 +57,6 @@ class WatchDetailsPortraitView extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                // Top info
                 Positioned(
                   top: MediaQuery.of(context).size.height * 0.38,
                   left: 0,
@@ -81,16 +76,23 @@ class WatchDetailsPortraitView extends StatelessWidget {
                         children: [
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.7,
+                            height: 52,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.skyBlue,
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 14),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        const ShowtimeSelectionView(),
+                                  ),
+                                );
+                              },
                               child: const Text(
                                 'Get Tickets',
                                 style: TextStyle(
@@ -103,13 +105,11 @@ class WatchDetailsPortraitView extends StatelessWidget {
                           const SizedBox(height: 12),
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.7,
+                            height: 52,
                             child: OutlinedButton.icon(
                               style: OutlinedButton.styleFrom(
-                                side: const BorderSide(
-                                  color: AppColors.skyBlue,
-                                ),
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 14),
+                                side:
+                                    const BorderSide(color: AppColors.skyBlue),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -131,12 +131,10 @@ class WatchDetailsPortraitView extends StatelessWidget {
                             ),
                           ),
                         ],
-                      ),
+                      )
                     ],
                   ),
                 ),
-
-                // Bottom sheet
                 Positioned.fill(
                   top: MediaQuery.of(context).size.height * 0.6,
                   child: Container(
